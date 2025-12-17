@@ -6,6 +6,7 @@ public class Constants {
     public static final String AUTHORITIES_CLAIM = "authorities";
     public static final String NAME_CLAIM = "name";
     public static final String SURNAME_CLAIM = "surname";
+    public static final String USER_ID_CLAIM = "userId";
 
     public static final String ENV_JWT_SECRET = "JWT_SECRET";
     public static final String ENV_JWT_EXPIRATION_MS = "JWT_EXPIRATION_MS";

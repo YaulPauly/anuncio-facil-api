@@ -1,6 +1,6 @@
 # Servicios y ejemplos de uso
 
-Todos los endpoints (salvo login) requieren header `Authorization: Bearer <token>`.
+Auth (`/auth/**`) no requiere token. `GET /ads` y `GET /ads/{id}` son públicos; el resto usa header `Authorization: Bearer <token>`.
 
 Base URL (docker por defecto): `http://localhost:8080`
 
@@ -100,8 +100,7 @@ Solo el dueño o un usuario con rol ADMIN puede editar/modificar un anuncio.
   ```
 - **GET /ads** listar con paginación (filtros opcionales `categoryId`, `city`, `district`, `status`, `page`, `size`)
   ```bash
-  curl "http://localhost:8080/ads?categoryId=1&city=Lima&status=ACTIVO&page=0&size=10" \
-    -H "Authorization: Bearer $TOKEN"
+  curl "http://localhost:8080/ads?categoryId=1&city=Lima&status=ACTIVO&page=0&size=10"
   ```
 - **GET /ads/mine** mis anuncios
   ```bash

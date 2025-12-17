@@ -20,6 +20,7 @@ import java.util.List;
 import static com.cibertec.anuncio_facil_api.config.security.Constants.AUTHORITIES_CLAIM;
 import static com.cibertec.anuncio_facil_api.config.security.Constants.NAME_CLAIM;
 import static com.cibertec.anuncio_facil_api.config.security.Constants.SURNAME_CLAIM;
+import static com.cibertec.anuncio_facil_api.config.security.Constants.USER_ID_CLAIM;
 
 @Component
 public class JwtTokenProvider {
@@ -41,6 +42,7 @@ public class JwtTokenProvider {
                 .setExpiration(expiry)
                 .claim(NAME_CLAIM, user.getFirstName())
                 .claim(SURNAME_CLAIM, user.getLastName())
+                .claim(USER_ID_CLAIM, user.getId())
                 .claim(AUTHORITIES_CLAIM, roles)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
                 .compact();

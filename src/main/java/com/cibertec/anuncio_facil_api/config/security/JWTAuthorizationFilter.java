@@ -44,18 +44,22 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private Claims getClaims(HttpServletRequest request) {
-        String jwtToken = request.getHeader(AUTHORIZATION_HEADER).replace(TOKEN_BEARER_PREFIX, "");
+        String jwtToken = request.getHeader(AUTHORIZATION_HEADER).replace(TOKEN_BEARER_PREFIX, "").trim();
         return jwtTokenProvider.getClaims(jwtToken);
     }
 
     private boolean isJWTValid(HttpServletRequest request) {
         String authenticationHeader = request.getHeader(AUTHORIZATION_HEADER);
-        return authenticationHeader != null && authenticationHeader.startsWith(TOKEN_BEARER_PREFIX);
+        if (authenticationHeader == null || !authenticationHeader.startsWith(TOKEN_BEARER_PREFIX)) {
+            return false;
+        }
+        String token = authenticationHeader.replace(TOKEN_BEARER_PREFIX, "").trim();
+        return !token.isEmpty() && !"null".equalsIgnoreCase(token);
     }
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
         String path = request.getServletPath();
-        return path.equals("/auth/login") || "OPTIONS".equalsIgnoreCase(request.getMethod());
+        return path.startsWith("/auth") || "OPTIONS".equalsIgnoreCase(request.getMethod());
     }
 }

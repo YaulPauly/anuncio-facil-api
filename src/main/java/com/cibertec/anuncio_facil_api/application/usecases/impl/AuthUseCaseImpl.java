@@ -17,6 +17,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.http.HttpStatus;
 
 @Service
 @RequiredArgsConstructor
@@ -34,14 +36,14 @@ public class AuthUseCaseImpl implements AuthUseCase {
                     new UsernamePasswordAuthenticationToken(request.email(), request.password())
             );
             if (!authentication.isAuthenticated()) {
-                throw new RuntimeException("Credenciales inválidas");
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
             }
         } catch (AuthenticationException e) {
-            throw new RuntimeException("Credenciales inválidas", e);
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas");
         }
 
         User user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Credenciales inválidas"));
 
         String token = jwtTokenProvider.generateToken(user);
 
@@ -57,7 +59,7 @@ public class AuthUseCaseImpl implements AuthUseCase {
     @Override
     public BasicUserResponse register(RegisterRequest request) {
         if (userRepository.existsByEmail(request.email())) {
-            throw new RuntimeException("El email ya está registrado");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "El email ya está registrado");
         }
 
         User user = User.builder()

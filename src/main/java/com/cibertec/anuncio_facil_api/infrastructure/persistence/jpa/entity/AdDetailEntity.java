@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 @Entity
 @Table(name = "ad_details")
@@ -19,5 +21,7 @@ public class AdDetailEntity {
     private Long id;
 
     @Lob
+    @JdbcTypeCode(SqlTypes.LONGVARCHAR) // Usa TEXT en Postgres, evita OID/clob
+    @Column(columnDefinition = "TEXT")
     private String content;
 }
