@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: anuncio-facil-api
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:anunciodb}
+    username: ${DB_USER:anuncio}
+    password: ${DB_PASSWORD:anuncio123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+storage:
+  endpoint: ${STORAGE_ENDPOINT:}
+  bucket: ${STORAGE_BUCKET:}
+  access-key: ${STORAGE_ACCESS_KEY:}
+  secret-key: ${STORAGE_SECRET_KEY:}
+  region: ${STORAGE_REGION:auto}
+  public-base-url: ${STORAGE_PUBLIC_BASE_URL:}

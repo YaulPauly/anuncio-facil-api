@@ -1,0 +1,9 @@
+package com.cibertec.anuncio_facil_api.application.dto.request;
+
+import jakarta.validation.constraints.NotBlank;
+
+public record CategoryRequest(
+        @NotBlank String name,
+        String description
+) {
+}
