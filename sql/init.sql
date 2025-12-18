@@ -75,3 +75,9 @@ INSERT INTO comments (id, content, user_id, ad_id) VALUES
     (1, '¿Sigue disponible?', (SELECT id FROM users WHERE email = 'user@anuncio.com'), 1),
     (2, 'Interesado, ¿precio negociable?', (SELECT id FROM users WHERE email = 'admin@anuncio.com'), 2)
 ON CONFLICT (id) DO UPDATE SET content = EXCLUDED.content;
+
+-- Ajusta los valores de las secuencias cuando se insertan IDs fijos en los seeds
+SELECT setval('ad_details_id_seq', COALESCE((SELECT MAX(id) FROM ad_details), 1), true);
+SELECT setval('categories_id_seq', COALESCE((SELECT MAX(id) FROM categories), 1), true);
+SELECT setval('ads_id_seq', COALESCE((SELECT MAX(id) FROM ads), 1), true);
+SELECT setval('comments_id_seq', COALESCE((SELECT MAX(id) FROM comments), 1), true);

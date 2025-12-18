@@ -109,10 +109,9 @@ public class AdUseCaseImpl implements AdUseCase {
     @Override
     public List<AdResponse> listByCurrentUser() {
         User user = getCurrentUser();
-        return adRepository.findByUserId(user.getId())
-                .stream()
-                .map(this::toResponse)
-                .toList();
+        boolean isAdmin = user.getRole() != null && "ADMIN".equalsIgnoreCase(user.getRole().getName());
+        List<Ad> ads = isAdmin ? adRepository.findAll() : adRepository.findByUserId(user.getId());
+        return ads.stream().map(this::toResponse).toList();
     }
 
     private User getCurrentUser() {

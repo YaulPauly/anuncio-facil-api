@@ -107,6 +107,7 @@ Solo el dueño o un usuario con rol ADMIN puede editar/modificar un anuncio.
   curl http://localhost:8080/ads/mine \
     -H "Authorization: Bearer $TOKEN"
   ```
+  - Nota: si el token pertenece a un usuario con rol ADMIN devolverá todos los anuncios; si es un usuario normal, solo sus propios anuncios.
 
 ## Comentarios (por anuncio)
 
@@ -133,8 +134,7 @@ Ruta base: `/ads/{adId}/comments`
   ```
 - **GET /** listar comentarios de un anuncio con paginación (`page`, `size`)
   ```bash
-  curl "http://localhost:8080/ads/1/comments?page=0&size=10" \
-    -H "Authorization: Bearer <token>"
+  curl "http://localhost:8080/ads/1/comments?page=0&size=10"
   ```
 
 ## Administración (solo ADMIN)
@@ -145,4 +145,9 @@ Ruta base: `/ads/{adId}/comments`
     -H "Content-Type: application/json" \
     -H "Authorization: Bearer $TOKEN_ADMIN" \
     -d '{"status":"BLOCKED"}'
+  ```
+- **GET /users** listar todos los usuarios (solo ADMIN)
+  ```bash
+  curl http://localhost:8080/users \
+    -H "Authorization: Bearer $TOKEN_ADMIN"
   ```

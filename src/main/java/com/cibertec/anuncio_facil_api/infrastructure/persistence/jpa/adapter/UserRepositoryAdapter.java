@@ -11,6 +11,7 @@ import com.cibertec.anuncio_facil_api.infrastructure.persistence.jpa.repository.
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -29,6 +30,11 @@ public class UserRepositoryAdapter implements UserRepository {
     @Override
     public Optional<User> findById(Long id) {
         return userJpaRepository.findById(id).map(this::toDomain);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userJpaRepository.findAll().stream().map(this::toDomain).toList();
     }
 
     @Override

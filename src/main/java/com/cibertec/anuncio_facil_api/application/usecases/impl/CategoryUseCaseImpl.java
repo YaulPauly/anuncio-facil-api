@@ -22,8 +22,9 @@ public class CategoryUseCaseImpl implements CategoryUseCase {
     @Override
     public CategoryResponse create(CategoryRequest request) {
         if (categoryRepository.existsByName(request.name())) {
-            throw new RuntimeException("La categoría ya existe");
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "La categoría ya existe");
         }
+        // En caso de condición de carrera, deja que la base devuelva conflicto único
         Category category = Category.builder()
                 .name(request.name())
                 .description(request.description())

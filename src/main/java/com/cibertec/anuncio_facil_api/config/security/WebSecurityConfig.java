@@ -37,6 +37,7 @@ public class WebSecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/auth/**").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/ads/*/comments/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/ads/mine").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/ads", "/ads/*").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()

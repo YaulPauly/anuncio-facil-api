@@ -11,8 +11,10 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
+import io.jsonwebtoken.security.SignatureException;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import static com.cibertec.anuncio_facil_api.config.security.Constants.AUTHORIZATION_HEADER;
 import static com.cibertec.anuncio_facil_api.config.security.Constants.TOKEN_BEARER_PREFIX;
@@ -34,9 +36,10 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
             } else {
                 SecurityContextHolder.clearContext();
             }
-        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException e) {
-            response.setStatus(HttpServletResponse.SC_FORBIDDEN);
-            response.sendError(HttpServletResponse.SC_FORBIDDEN, e.getMessage());
+        } catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException | IllegalArgumentException e) {
+            SecurityContextHolder.clearContext();
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, Optional.ofNullable(e.getMessage()).orElse("Token inválido"));
         }
 
         //Indica a Spring que continue con los demas filtros
