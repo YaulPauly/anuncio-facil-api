@@ -40,6 +40,7 @@ public class WebSecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/ads/*/comments/**").permitAll()
                                 .requestMatchers(HttpMethod.GET, "/ads/mine").authenticated()
                                 .requestMatchers(HttpMethod.GET, "/ads", "/ads/*").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/categories", "/categories/*").permitAll()
                                 .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/media").authenticated()
                                 .anyRequest().authenticated())

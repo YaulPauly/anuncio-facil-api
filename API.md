@@ -1,6 +1,6 @@
 # Servicios y ejemplos de uso
 
-Auth (`/auth/**`) no requiere token. `GET /ads` y `GET /ads/{id}` son públicos; el resto usa header `Authorization: Bearer <token>`.
+Auth (`/auth/**`) no requiere token. `GET /ads`, `GET /ads/{id}` y `GET /categories` son públicos; el resto usa header `Authorization: Bearer <token>`.
 
 Base URL (docker por defecto): `http://localhost:8080`
 

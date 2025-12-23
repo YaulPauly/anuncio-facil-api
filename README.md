@@ -116,5 +116,8 @@ Respuesta esperada:
 
 Usa el token con `Authorization: Bearer <token>` para acceder a los endpoints protegidos.
 
+Endpoints públicos adicionales:
+- `GET /categories`
+
 ## Estructura del proyecto
 Resumen de carpetas y responsabilidades en `STRUCTURE.md`.
